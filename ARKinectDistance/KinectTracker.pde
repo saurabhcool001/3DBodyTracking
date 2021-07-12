@@ -1,16 +1,9 @@
-// Daniel Shiffman
-// Tracking the average location beyond a given depth threshold
-// Thanks to Dan O'Sullivan
-
-// https://github.com/shiffman/OpenKinect-for-Processing
-// http://shiffman.net/p5/kinect/
 
 class KinectTracker {
 
   // Depth threshold
-  int threshold = 1032;//500;//1032;//650;
-  int threshold1 =1036;//650;//1035;// 500;
-
+  int threshold = 1032;
+  int threshold1 =1036;
 
 
   // Raw location
@@ -51,8 +44,6 @@ class KinectTracker {
 
     for (int x = 320; x < 340; x++) {
       for (int y = 240; y < 247; y++) {
-        //for (int x = 295; x < 320; x++) {
-        //  for (int y = 280; y < 290; y++) {
 
         int offset =  x + y*kinect.width;
         // Grabbing the raw depth
@@ -63,11 +54,9 @@ class KinectTracker {
           sumX += x;
           sumY += y;
           count++;
-          //inThreshold = true;
         }
       }
     }
-    //println(avgX + "     " + avgY);
 
     avgX = sumX/count;
     avgY = sumY/count;
@@ -107,8 +96,6 @@ class KinectTracker {
     // Going to rewrite the depth image to show which pixels are in threshold
     // A lot of this is redundant, but this is just for demonstration purposes
     display.loadPixels();
-    //for (int x = 270; x < 300; x++) {
-    // for (int y = 55; y < 80; y++) {
     for (int x = 320; x < 340; x++) {
       for (int y = 240; y < 247; y++) {
         int offset = x + y * kinect.width;
@@ -125,9 +112,6 @@ class KinectTracker {
       }
     }
     display.updatePixels();
-
-    // Draw the image
-    //image(display, 0, 0);
   }
 
   int getThreshold() {
