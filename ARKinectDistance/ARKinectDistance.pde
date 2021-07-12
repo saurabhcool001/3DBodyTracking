@@ -1,14 +1,4 @@
 import processing.video.*;
-
-//import gifAnimation.*;
-
-// Daniel Shiffman
-// Tracking the average location beyond a given depth threshold
-// Thanks to Dan O'Sullivan
-
-// https://github.com/shiffman/OpenKinect-for-Processing
-// http://shiffman.net/p5/kinect/
-
 import org.openkinect.freenect.*;
 import org.openkinect.processing.*;
 
@@ -40,9 +30,7 @@ void setup() {
   size(1280, 720, P3D);
   cam = new Capture(this, 640, 480);
   kinect = new Kinect(this);
-  //frameRate(30);
   tracker = new KinectTracker();
-  //img1 = loadImage("1.jpg");
   hand = loadImage("hand.png");
 
   mov = new Movie(this, "../../AR_Render_Final/Industries.mov");
@@ -50,9 +38,7 @@ void setup() {
   firstTime = false;
   trackSensor = true;
   inThreshold = false;
-  //frameRate(30);
-  //mov.loop();
-}
+
 
 void captureEvent(Capture cam) {
   cam.read();
@@ -65,13 +51,6 @@ void movieEvent(Movie mov) {
 void draw() {
   background(0);
   surface.setTitle((int)frameRate + " fps");
-  //background(255);
-  //if (millis() >= currTimer) {
-  //  currTimer = millis() + 1000;
-  //  se = se + 1;
-  //  //println(se);
-  //}
-
 
   // Run the tracking analysis
 
@@ -88,8 +67,6 @@ void draw() {
   translate(-1280, 0);
   image(cam, 0, 0, 1280, 720);
   popMatrix();
-  //image(kinect.getDepthImage(), 0, 0);
-  //rect(270, 300, 100, 100);
 
   //image(kinect.getVideoImage(), 0, 0, 1280, 720);
   if (firstTime == true) {
@@ -110,10 +87,6 @@ void draw() {
   fill(50, 100, 250, 200);
   noStroke();
   ellipse(v11.x, v11.y, 20, 20);
-  //image(hand, v1.x, v1.y, 80, 80);
-  //if (normalVid == true) {
-  //  image(mov, avgX1-100, avgY1-100);
-  //}
 
   // Let's draw the "lerped" location
   PVector v22 = tracker.getLerpedPos();
@@ -122,9 +95,6 @@ void draw() {
   fill(100, 250, 50, 200);
   noStroke();
 
-
- // if (mov.time() >= 0) {
-   // if (mov.time() == mov.duration()) {
      if (mov.time() >= mov.duration()-2) {
       //mov.stop();
       mov.jump(1);
@@ -134,15 +104,14 @@ void draw() {
       trackSensor = true;
       inThreshold = false;
     }
-  //}
-  //else if (inThreshold == true) {
+
     else if (avgX >= 250) {
-    //{
+
       firstTime = true;
       trackSensor = false;
       mov.play();
       println("avgX : " + avgX);
-    //}
+
   }
 
 
